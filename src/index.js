@@ -1,22 +1,16 @@
-const express = require("express");
-const cors = require("cors");
+const express = require('express');
+const cors = require('cors');
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
+
+const userRoutes = require('./routes/userRoutes');
 
 app.use(cors());
 app.use(express.json());
 
-// Importando rotas
-const csosnRoutes = require("./routes/csosnRoutes");
-const cstRoutes = require("./routes/cstRoutes");
-const cfopRoutes = require("./routes/cfopRoutes"); // Adicionando CFOP
-
-// Registrando as rotas
-app.use("/api", csosnRoutes);
-app.use("/api", cstRoutes);
-app.use("/api", cfopRoutes); // Agora CFOP está incluído
+app.use('/api', userRoutes);
 
 app.listen(PORT, () => {
-    console.log(`🚀 Servidor rodando na porta ${PORT}`);
+    console.log(`Servidor rodando na porta ${PORT}`);
 });
