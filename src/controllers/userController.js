@@ -1,23 +1,9 @@
-const fs = require('fs');
-const path = require('path');
-
-const dataPath = path.join(__dirname, '../data/userData.json');
-
-// Função para carregar os usuários do JSON
-const getUsers = () => {
-    const rawData = fs.readFileSync(dataPath);
-    return JSON.parse(rawData);
-};
-
-// Função para salvar os usuários no JSON
-const saveUsers = (users) => {
-    fs.writeFileSync(dataPath, JSON.stringify(users, null, 2));
-};
+const User = require('../models/User');
 
 // Retorna todos os usuários
-const getAllUsers = (req, res) => {
+const getAllUsers = async (req, res) => {
     try {
-        const users = getUsers();
+        const users = await User.find();
         res.json(users);
     } catch (error) {
         res.status(500).json({ error: "Erro ao carregar os usuários." });
@@ -25,11 +11,9 @@ const getAllUsers = (req, res) => {
 };
 
 // Retorna um usuário pelo ID
-const getUserById = (req, res) => {
+const getUserById = async (req, res) => {
     try {
-        const users = getUsers();
-        const user = users.find(u => u.id === parseInt(req.params.id));
-
+        const user = await User.findById(req.params.id);
         if (user) {
             res.json(user);
         } else {
@@ -41,26 +25,16 @@ const getUserById = (req, res) => {
 };
 
 // Adiciona um novo usuário
-const createUser = (req, res) => {
+const createUser = async (req, res) => {
     try {
-        const users = getUsers();
         const { nome, email, senha, telefone, cnpj } = req.body;
 
         if (!nome || !email || !senha || !telefone || !cnpj) {
             return res.status(400).json({ error: "Todos os campos são obrigatórios." });
         }
 
-        const newUser = {
-            id: users.length ? users[users.length - 1].id + 1 : 1, // Gerando novo ID
-            nome,
-            email,
-            senha,
-            telefone,
-            cnpj
-        };
-
-        users.push(newUser);
-        saveUsers(users);
+        const newUser = new User({ nome, email, senha, telefone, cnpj });
+        await newUser.save();
         res.status(201).json(newUser);
     } catch (error) {
         res.status(500).json({ error: "Erro ao criar o usuário." });
@@ -68,39 +42,30 @@ const createUser = (req, res) => {
 };
 
 // Atualiza um usuário pelo ID
-const updateUser = (req, res) => {
+const updateUser = async (req, res) => {
     try {
-        let users = getUsers();
-        const { id } = req.params;
         const { nome, email, senha, telefone, cnpj } = req.body;
+        const updatedUser = await User.findByIdAndUpdate(req.params.id, { nome, email, senha, telefone, cnpj }, { new: true });
 
-        const index = users.findIndex(u => u.id === parseInt(id));
-
-        if (index === -1) {
+        if (!updatedUser) {
             return res.status(404).json({ error: "Usuário não encontrado." });
         }
 
-        users[index] = { ...users[index], nome, email, senha, telefone, cnpj };
-        saveUsers(users);
-        res.json(users[index]);
+        res.json(updatedUser);
     } catch (error) {
         res.status(500).json({ error: "Erro ao atualizar o usuário." });
     }
 };
 
 // Exclui um usuário pelo ID
-const deleteUser = (req, res) => {
+const deleteUser = async (req, res) => {
     try {
-        let users = getUsers();
-        const { id } = req.params;
+        const deletedUser = await User.findByIdAndDelete(req.params.id);
 
-        const filteredUsers = users.filter(u => u.id !== parseInt(id));
-
-        if (users.length === filteredUsers.length) {
+        if (!deletedUser) {
             return res.status(404).json({ error: "Usuário não encontrado." });
         }
 
-        saveUsers(filteredUsers);
         res.json({ message: "Usuário removido com sucesso." });
     } catch (error) {
         res.status(500).json({ error: "Erro ao excluir o usuário." });
