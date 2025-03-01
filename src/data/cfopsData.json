@@ -1,0 +1,82 @@
+[
+  {
+    "codigo": "1101",
+    "descricao": "Compra para industrialização ou produção rural",
+    "tipo": "Entrada"
+  },
+  {
+    "codigo": "1102",
+    "descricao": "Compra para comercialização",
+    "tipo": "Entrada"
+  },
+  {
+    "codigo": "1104",
+    "descricao": "Compra de Mercadoria adquirida ou recebida de terceiros efetuada fora do estabelecimento",
+    "tipo": "Entrada"
+  },
+  {
+    "codigo": "1111",
+    "descricao": "Compra para industrialização, de mercadoria recebida anteriormente em consignação industrial",
+    "tipo": "Entrada"
+  },
+  {
+    "codigo": "1113",
+    "descricao": "Compra para comercialização, de mercadoria recebida anteriormente em consignação mercantil",
+    "tipo": "Entrada"
+  },
+  {
+    "codigo": "1201",
+    "descricao": "Devolução de venda de produção do estabelecimento",
+    "tipo": "Entrada"
+  },
+  {
+    "codigo": "1202",
+    "descricao": "Devolução de venda de mercadoria adquirida ou recebida de terceiros",
+    "tipo": "Entrada"
+  },
+  {
+    "codigo": "2101",
+    "descricao": "Venda de produção do estabelecimento",
+    "tipo": "Saída"
+  },
+  {
+    "codigo": "2102",
+    "descricao": "Venda de mercadoria adquirida ou recebida de terceiros",
+    "tipo": "Saída"
+  },
+  {
+    "codigo": "2103",
+    "descricao": "Venda de produção do estabelecimento efetuada fora do estabelecimento",
+    "tipo": "Saída"
+  },
+  {
+    "codigo": "2201",
+    "descricao": "Devolução de compra para industrialização ou produção rural",
+    "tipo": "Saída"
+  },
+  {
+    "codigo": "2202",
+    "descricao": "Devolução de compra para comercialização",
+    "tipo": "Saída"
+  },
+  {
+    "codigo": "5101",
+    "descricao": "Venda de produção do estabelecimento",
+    "tipo": "Saída"
+  },
+  {
+    "codigo": "5102",
+    "descricao": "Venda de mercadoria adquirida ou recebida de terceiros",
+    "tipo": "Saída"
+  },
+  {
+    "codigo": "5201",
+    "descricao": "Devolução de compra para industrialização ou produção rural",
+    "tipo": "Saída"
+  },
+  {
+    "codigo": "5202",
+    "descricao": "Devolução de compra para comercialização",
+    "tipo": "Saída"
+  }
+]
